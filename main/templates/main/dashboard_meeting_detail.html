@@ -1,0 +1,76 @@
+{% extends 'main/dashboard_base.html' %}
+
+{% load static %}
+{% block content %}
+{{ meeting.obj }}
+<hr>
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action">Points of the meeting :</a>
+    {% for point in meeting.points %}
+    <a href="#" class="list-group-item list-group-item-action list-group-item-{% if forloop.counter | divisibleby:2 == 0 %}primary{% else %}info{% endif %}">
+        {{ forloop.counter }}. {{ point }}
+    </a>
+    {% endfor %}
+</div>
+Members :
+<hr>
+<div class="row">
+    {% for member in meeting.members.all %}
+    <div class="col-md-4">
+        <!-- Widget: user widget style 2 -->
+        <div class="card card-widget widget-user-2">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-warning">
+                <div class="widget-user-image">
+                    <img class="img-circle elevation-2" src="{{ member.profile.photo.url }}"
+                        alt="{{ member.username }}_photo">
+                </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username"><a href="{% url 'profile' member.id %}">{{ member.username }}</a></h3>
+                <h5 class="widget-user-desc">{{ member.profile.job }}</h5>
+            </div>
+            <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            {{ member.profile.description }} <span class="float-right badge bg-primary">31</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            {{ member.profile.phone }} <span class="float-right badge bg-info">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            {{ member.email }} <span class="float-right badge bg-success">12</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+    {% endfor %}
+</div>
+
+Begin : {{ meeting.begin }}
+<hr>
+End : {{ meeting.end }}
+<hr>
+Date : {{ meeting.date }}
+<hr>
+{% if meeting.previous_meeting %}
+Previous meeting : <a href="{% url 'meeting' meeting.previous_meeting.id %}">{{ meeting.previous_meeting }}</a>
+<hr>
+{% endif %}
+{% if meeting.next_meeting %}
+Next meeting : <a href="{% url 'meeting' meeting.next_meeting.id %}">{{ meeting.next_meeting }}</a>
+<hr>
+{% endif %}
+
+
+
+
+{% endblock %}

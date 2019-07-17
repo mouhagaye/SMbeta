@@ -1,0 +1,41 @@
+{% extends 'main/dashboard_base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+
+    </div>
+</div>
+
+<div class="row">
+    {% for meeting in meetings %}
+    <div class="col-md-3">
+        <div class="card collapsed-card" style="background: linear-gradient(135deg, #2ebdc4 0%, #68e5b2 100%)">
+            <div class="card-header">
+                <h3 class="card-title" style="font-size: 23px">{{ meeting.title }}</h3>
+
+                <div class="card-tools">
+                    <button type="button" aria-expanded="false" class="btn btn-tool" data-widget="collapse"><i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: none;">
+                <h4 style="color:rgb(255, 0, 0)">{{ meeting.obj }}</h4> <hr>
+                <h4 style="color: aliceblue">Members</h4> <hr>
+                {% for member in meeting.members.all %}
+                <a href="{% url 'profile' member.id %}"><h5>{{ member }}</h6></a> <hr>
+                {{ meeting.date_posted }}
+                {% endfor %}
+                <a href="{% url 'meeting' meeting.id %}" class="btn btn-block btn-light">Voir plus</a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    {% endfor %}
+    <!-- /.col -->
+</div>
+{% endblock %}

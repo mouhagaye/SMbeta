@@ -1,0 +1,188 @@
+{% extends 'main/dashboard_base.html' %}
+
+{% load static %}
+{% block content %}
+<!-- Main content -->
+
+<!-- Small boxes (Stat box) -->
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <!-- small card -->
+        <div class=" small-box bg-warning">
+            <div class="inner">
+                <h3>
+                    <a class="btn btn-app" data-toggle="modal" data-target="#modal-xl">
+                        <span class="badge bg-purple">+</span>
+                        <i class="fas fa-users"></i> New Meeting
+                    </a>
+                </h3>
+            </div>
+            <div class="icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<!-- Main row -->
+<div class="row">
+
+</div>
+<!-- /.row (main row) -->
+
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-xl">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content card card-info">
+            <div class="modal-header card-header">
+                <h4 class="modal-title card-title">New Meeting</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body card-body">
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="object" placeholder="Object of the meeting">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Multiple</label>
+                        <select class="select2 select2-hidden-accessible" name="members[]" multiple="true"
+                            data-placeholder="Select a State" style="width: 100%;" data-select2-id="7" tabindex="-1"
+                            aria-hidden="true">
+                            {% for user in users %}
+                            <option data-select2-id="{{ user.id }}">{{ user.email }}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="dropdown-wrapper" aria-hidden="true"></span>
+                        </span>
+                    </div>
+
+                    <div class="sandbox">
+                        <label for="select-to-selectized">Email:</label>
+                        <select id="select-to" class="contacts selectized" placeholder="Pick some people..."
+                            multiple="multiple" tabindex="-1" style="display: none;"></select>
+                        <div class="selectize-control contacts multi">
+                            <div class="selectize-input items not-full has-options"><input type="select-multiple"
+                                    autocomplete="off" tabindex="" id="select-to-selectized"
+                                    style="width: 120px; opacity: 1; position: relative; left: 0px;"
+                                    placeholder="Pick some people..."></div>
+                            <div class="selectize-dropdown multi contacts"
+                                style="display: none; width: 520px; top: 36px; left: 0px; visibility: visible;">
+                                <div class="selectize-dropdown-content">
+                                    <div data-selectable="" data-value="brian@thirdroute.com" class=""><span
+                                            class="label">Brian Reavis</span><span
+                                            class="caption">brian@thirdroute.com</span></div>
+                                    <div data-selectable="" data-value="nikola@tesla.com" class=""><span
+                                            class="label">Nikola Tesla</span><span
+                                            class="caption">nikola@tesla.com</span></div>
+                                    <div data-selectable="" data-value="someone@gmail.com" class=""><span
+                                            class="label">someone@gmail.com</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value">Current Value: <span>null</span></div>
+                    </div>
+
+                    <div class="form-group container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <label for="begin">Begining hour :</label>
+                                <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
+                                    <input name="begin" type="text" class="form-control datetimepicker-input"
+                                        data-target="#datetimepicker7" />
+                                    <span class="input-group-append" data-target="#datetimepicker7"
+                                        data-toggle="datetimepicker">
+                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='col-sm-6'>
+                                <label for="end">End hour :</label>
+                                <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
+                                    <input name="end" type="text" class="form-control datetimepicker-input"
+                                        data-target="#datetimepicker8" />
+                                    <span class="input-group-append" data-target="#datetimepicker8"
+                                        data-toggle="datetimepicker">
+                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Main points of the meeting</h4>
+                                </div>
+                                <div class="card-body">
+                                    <!-- the events -->
+                                    <div id="external-events">
+
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Add points</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                                        <ul class="fc-color-picker" id="color-chooser">
+                                            <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a>
+                                            </li>
+                                            <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a>
+                                            </li>
+                                            <li><a class="text-success" href="#"><i class="fas fa-square"></i></a>
+                                            </li>
+                                            <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a>
+                                            </li>
+                                            <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /btn-group -->
+                                    <div class="input-group">
+                                        <input id="new-event" type="text" class="form-control"
+                                            placeholder="Event Title">
+
+                                        <div class="input-group-append">
+                                            <button id="add-new-event" type="button"
+                                                class="btn btn-primary btn-flat">Add</button>
+                                        </div>
+                                        <!-- /btn-group -->
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between card-footer">
+                <button type="submit" class="btn btn-default float-left" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-info float-right">Create meeting</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+{% endblock %}
